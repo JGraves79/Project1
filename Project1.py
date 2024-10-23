@@ -22,17 +22,14 @@ ndf.keys()
 ndf['Electric Vehicle Type_Battery Electric Vehicle (BEV)']=ndf['Electric Vehicle Type_Battery Electric Vehicle (BEV)'].astype(int)
 ndf['Electric Vehicle Type_Plug-in Hybrid Electric Vehicle (PHEV)']=ndf['Electric Vehicle Type_Plug-in Hybrid Electric Vehicle (PHEV)'].astype(int)
 
-# Plot the data 
-ndf.plot(kind='bar', x='District', y='[Electric Vehicle Type_Plug-in Hybrid Electric Vehicle (PHEV)]''[Electric Vehicle Type_Battery Electric Vehicle (BEV)]', legend=False)
-plt.title('Electric Vehicle Type_Battery Electric Vehicle (BEV) vs. Electric Vehicle Type_Plug-in Hybrid Electric Vehicle (PHEV)')
-plt.xlabel('District')
-plt.ylabel('Number of Vehicle')
-plt.legend(title='District')
-plt.show()
+ndf=ndf.groupby('District').sum()
 
-# Plot the data 
-D_index = ndf['District'].value_counts()
-plt.figure(figsize=(20, 10))  
-D_index.plot(kind='bar', rot=70)
+
+ndf=ndf.groupby('District').sum()
+ndf3=ndf.iloc[:10,:]
+ndf3[['Electric Vehicle Type_Plug-in Hybrid Electric Vehicle (PHEV)','Electric Vehicle Type_Battery Electric Vehicle (BEV)']].plot(kind='bar', legend=True)
+plt.title('BEV vs. PHEV')
 plt.xlabel('District')
-plt.ylabel('EV Type')
+plt.ylabel('Number of Vehicles')
+plt.legend(title='Vehicle Type')
+plt.show()
